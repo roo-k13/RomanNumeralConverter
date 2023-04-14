@@ -2,7 +2,7 @@
 
 namespace Library
 {
-    public class RomanNumeralConverter
+    public static partial class RomanNumeralConverter
     {
         private static readonly Dictionary<char, int> _romanToNumberDictionary;
         private static readonly Dictionary<int, char> _numberToRomanDictionary;
@@ -31,12 +31,16 @@ namespace Library
                 { 1000, 'M'}
             };
         }
-
-        internal static int Convert(string input)
+        
+        /// <summary>
+        /// Converts a string with roman numerals to int
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static int Convert(string input)
         {
-            Regex regex = new("^(?=[MDCLXVI])M*(C[MD]|D?C*)(X[CL]|L?X*)(I[XV]|V?I*)$");
-
-            if (!regex.IsMatch(input))
+            if (RomanNumeralStringRegex().IsMatch(input))
                 throw new ArgumentException($"The string provided is not valid: '{input}'");
 
             int result = 0;
@@ -49,9 +53,18 @@ namespace Library
             return result;
         }
 
-        internal string Convert(int input)
+        /// <summary>
+        /// Converts an int to a string of roman numerals
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static string Convert(int input)
         {
             throw new InvalidOperationException();
         }
+
+        [GeneratedRegex("^(?=[MDCLXVI])M*(C[MD]|D?C*)(X[CL]|L?X*)(I[XV]|V?I*)$")]
+        private static partial Regex RomanNumeralStringRegex();
     }
 }
