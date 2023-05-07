@@ -1,36 +1,64 @@
 using Library;
-using System.Numerics;
 
 namespace Tests
 {
     [TestClass]
     public class UnitTest
     {
-        [TestMethod]
-        public void TestMapping()
+
+        Dictionary<string, int> romanToNumberDictionary = new()
         {
-            List<string> list = new() { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IV", "X" };
-            
-            for (int i = 0; i < list.Count; i++)
+            {"I",  1    },
+            {"IV", 4    },
+            {"V",  5    },
+            {"IX", 9    },
+            {"X",  10   },
+            {"XL", 40   },
+            {"L",  50   },
+            {"XC", 90   },
+            {"C",  100  },
+            {"CD", 400  },
+            {"D",  500  },
+            {"CM", 900  },
+            {"M",  1000 }
+        };
+
+        [TestMethod]
+        public void RomanToNumberDictionaryTest()
+        {
+
+
+            Assert.AreEqual(1    , romanToNumberDictionary["I" ]);
+            Assert.AreEqual(4    , romanToNumberDictionary["IV"]);
+            Assert.AreEqual(5    , romanToNumberDictionary["V" ]);
+            Assert.AreEqual(9    , romanToNumberDictionary["IX"]);
+            Assert.AreEqual(10   , romanToNumberDictionary["X" ]);
+            Assert.AreEqual(40   , romanToNumberDictionary["XL"]);
+            Assert.AreEqual(50   , romanToNumberDictionary["L" ]);
+            Assert.AreEqual(90   , romanToNumberDictionary["XC"]);
+            Assert.AreEqual(100  , romanToNumberDictionary["C" ]);
+            Assert.AreEqual(400  , romanToNumberDictionary["CD"]);
+            Assert.AreEqual(500  , romanToNumberDictionary["D" ]);
+            Assert.AreEqual(900  , romanToNumberDictionary["CM"]);
+            Assert.AreEqual(1000 , romanToNumberDictionary["M" ]);
+        }
+
+        [TestMethod]
+        public void TestRomanToNumberConverter()
+        {
+
+            foreach (KeyValuePair<string, int> testCase in romanToNumberDictionary)
             {
-                string result = RomanNumeralConverter.Convert(i);
-                Assert.AreEqual(result, list[i]);
+                int result = RomanNumeralConverter.Convert(testCase.Key);
+                int expected = testCase.Value;
+                Assert.AreEqual(expected, result, $"Failed for input: {testCase.Key}");
             }
         }
 
         [TestMethod]
-        public void TestConverter()
+        public void TestNumberToRomanConverter() 
         {
-            Assert.AreEqual(RomanNumeralConverter.Convert("I"   ), 1);
-            Assert.AreEqual(RomanNumeralConverter.Convert("II"  ), 2);
-            Assert.AreEqual(RomanNumeralConverter.Convert("III" ), 3);
-            Assert.AreEqual(RomanNumeralConverter.Convert("IV"  ), 4);
-            Assert.AreEqual(RomanNumeralConverter.Convert("V"   ), 5);
-            Assert.AreEqual(RomanNumeralConverter.Convert("VI"  ), 6);
-            Assert.AreEqual(RomanNumeralConverter.Convert("VII" ), 7);
-            Assert.AreEqual(RomanNumeralConverter.Convert("VIII"), 8);
-            Assert.AreEqual(RomanNumeralConverter.Convert("IV"  ), 9);
-            Assert.AreEqual(RomanNumeralConverter.Convert("X"   ), 10);
+            throw new InvalidOperationException();
         }
     }
 }
