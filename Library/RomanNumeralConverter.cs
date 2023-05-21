@@ -32,7 +32,7 @@ namespace Library
         /// <param name="input"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static int Convert(string input) // TODO: OPTIMIZE THIS METHOD
+        public static int Convert(string input)
         {
             if (!RomanNumeralStringRegex().IsMatch(input))
                 throw new ArgumentException($"The string provided is not valid: '{input}'");
@@ -45,40 +45,11 @@ namespace Library
 
                 if (i < input.Length - 1)
                 {
-                    if (input[i].ToString() == "I")
-                    {
-                        if (input[i + 1].ToString() == "V")
-                            _romanToNumberDictionary.TryGetValue("IV", out result);
-                        
-                        else if (input[i + 1].ToString() == "X")
-                            _romanToNumberDictionary.TryGetValue("IX", out result);
+                    foreach (string key in _romanToNumberDictionary.Keys)
+                        if (key.Length == 2 && input[i].ToString() + input[i + 1].ToString() == key)
+                            result += _romanToNumberDictionary.GetValueOrDefault(key);
 
-                        break;
-                    }
-
-                    else if (input[i].ToString() == "X")
-                    {
-                        if (input[i + 1].ToString() == "L")
-                            _romanToNumberDictionary.TryGetValue("XL", out result);
-
-                        else if (input[i + 1].ToString() == "C")
-                            _romanToNumberDictionary.TryGetValue("XC", out result);
-
-                        break;
-                    }
-
-                    else if (input[i].ToString() == "C")
-                    {
-                        if (input[i + 1].ToString() == "D")
-                            _romanToNumberDictionary.TryGetValue("CD", out result);
-
-                        else if (input[i + 1].ToString() == "M")
-                            _romanToNumberDictionary.TryGetValue("CM", out result);
-
-                        break;
-                    }
-
-
+                    break;
                 }
 
                 else
